@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,15 @@ namespace EF_MySql_Console
     {
         static void Main(string[] args)
         {
+            using (MySqlContext c = new MySqlContext())
+            {
+                var r = c.Links.Take(100).OrderByDescending(i => i.CreateDate).ToList();
+                foreach (var item in r)
+                {
+                    Console.WriteLine(item.Title);
+                }
+            }
+
         }
     }
 }
